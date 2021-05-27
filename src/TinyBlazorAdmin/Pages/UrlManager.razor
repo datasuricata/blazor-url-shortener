@@ -6,7 +6,7 @@
 @inject IJSRuntime JSRuntime;
 @implements IDisposable
 @inject NavigationManager NavigationManager;
-@attribute [Authorize]
+@*@attribute [Authorize]*@
 
 @inject AzFuncClient azClient
 
@@ -264,33 +264,33 @@ else
         NavigationManager.LocationChanged -= LocationChanged;
     }
 
-[Authorize(Roles = "admin")]
-void CreateShortUrl()
-{
-    shortUrlRequest = new ShortUrlRequest();
-    ShowCreatePopup = true;
-}
+    //[Authorize(Roles = "admin")]
+    void CreateShortUrl()
+    {
+        shortUrlRequest = new ShortUrlRequest();
+        ShowCreatePopup = true;
+    }
 
 
-[Authorize(Roles = "admin")]
-void EditShortUrl(ShortUrlEntity urlEntity)
-{
-    editedUrl = urlEntity;
-    ShowEditPopup = true;
-}
+    //[Authorize(Roles = "admin")]
+    void EditShortUrl(ShortUrlEntity urlEntity)
+    {
+        editedUrl = urlEntity;
+        ShowEditPopup = true;
+    }
 
-[Authorize(Roles = "admin")]
-public async Task ArchiveShortUrl(ShortUrlEntity urlEntity)
-{
-    await azClient.ArchiveShortUrl(urlEntity);
-    await UpdateUIList();
-}
+    //[Authorize(Roles = "admin")]
+    public async Task ArchiveShortUrl(ShortUrlEntity urlEntity)
+    {
+        await azClient.ArchiveShortUrl(urlEntity);
+        await UpdateUIList();
+    }
 
 
-[Inject] public IJSRuntime JsRuntime { get; set; }
-public async Task CopyToClipboardAsync(string url)
-{
-    await JSRuntime.InvokeVoidAsync("clipboardCopy.copyText", url);
-}
+    [Inject] public IJSRuntime JsRuntime { get; set; }
+    public async Task CopyToClipboardAsync(string url)
+    {
+        await JSRuntime.InvokeVoidAsync("clipboardCopy.copyText", url);
+    }
 
 }
